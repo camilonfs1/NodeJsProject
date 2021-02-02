@@ -8,14 +8,9 @@ app.set('views',path.join(__dirname,'views'))
 app.set('view engine', 'ejs');                      //motor de plantilla
 
 
-// Routes
-app.get('/',(req,res)=>{
-    //res.sendFile('./Views/index.html');
-    //console.log(__dirname+'/Views/index.html'); //da la direccion del archivo que se esta ejecutando
-    //res.sendFile(path.join(__dirname,'views/index.html')); 
-    res.render('index')
-    //uso de path
-});
+//Routes
+app.use(require('./routes/index'));
+
 
 
 // Listening the server
