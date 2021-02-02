@@ -11,7 +11,8 @@ app.set('view engine', 'ejs');                      //motor de plantilla
 //Routes
 app.use(require('./routes/index'));
 
-
+//static files
+app.use(express.static(path.join(__dirname,'public')))
 
 // Listening the server
 app.listen(app.get('port'), ()=>{
