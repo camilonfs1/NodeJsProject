@@ -13,15 +13,29 @@ server.listen(3000, ()=>{
 });*/
 
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
-app.use(express.json());
+//SETTINGS
+app.set('appName','Camilo Express Example')
+app.set('port',3000)
 
-app.all('/user',(req, res,next)=>{
+
+//MIDDLEWARES
+function logger(req, res,next){ //mideware
+    console.log(`Route : ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    next();
+}
+
+app.use(express.json());
+app.use(morgan('dev'));
+
+/*app.all('/user',(req, res,next)=>{
     console.log('por aqui paso');
     next();
-});
+});*/
 
+//ROUTES
 app.get('/user',(req, res)=>{
     res.json({
         username:'camilo',
@@ -45,7 +59,9 @@ app.delete('/user/:userid',(req, res)=>{
     console.log(req.params);
     res.send(`Usuario ${req.params.userid} eliminado`)
 });
+app.use(express.static('public'));
 
-app.listen(3000,()=>{
-    console.log('Server on port 3000')
+app.listen(app.get('port'),()=>{
+    console.log(app.get('appName'));
+    console.log('Server on port ', app.get('port'));
 });
